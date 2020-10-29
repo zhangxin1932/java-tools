@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--设置全局配置环境-->
+    <settings>
+        <!--开启全局缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--开启懒加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--关闭延迟加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+    <!--配置分页插件pageHelper的拦截器：5.0版本之后的配置-->
+<!--    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>-->
+</configuration>

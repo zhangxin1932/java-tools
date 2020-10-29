@@ -1,0 +1,7 @@
+server:
+  port: 8001
+logging:
+  file: logs/springboot-assembly.log
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/sqlMappingConfig.xml

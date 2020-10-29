@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket-client</title>
+</head>
+<body>
+<div>
+    <form action="" onsubmit="return false">
+        <div>client request</div>
+        <textarea name="req" id="req" cols="30" rows="10"></textarea><br/>
+        <input type="button" value="send msg" onclick="sendMsg(this.form.req.value)">
+        <hr>
+        <div>server response</div>
+        <textarea name="resp" id="resp" cols="30" rows="10"></textarea><br/>
+        <input type="button" onclick="clearResp()" value="clear all resp">
+    </form>
+</div>
+</body>
+<script>
+    let socket;
+    if (window.WebSocket) {
+        socket = new WebSocket('ws://127.0.0.1:9090/wsp');
+        let resp = document.getElementById('resp');
+        // 连接一旦建立, 执行该回调方法
+        socket.onopen = function(event) {
+            resp.value = resp.value + '\n' + 'connected to the websocket server';
+        };
+        // 服务端返回消息时, 执行该回调方法
+        socket.onmessage = function (event) {
+            resp.value = resp.value + '\n' + event.data;
+        };
+        // 连接一旦关闭, 执行该回调方法
+        socket.onclose = function (event) {
+            resp.value = resp.value + '\n' + 'closed to the websocket server';
+        };
+        // 连接发生异常, 执行该回调方法
+        socket.onerror = function (event) {
+            resp.value = resp.value + '\n' + 'there is an error to the websocket server';
+        };
+    } else {
+        alert('您的浏览器不支持WebSocket');
+    }
+
+    function sendMsg(msg) {
+        if (!window.WebSocket) {
+            return;
+        }
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(msg);
+        } else {
+            alert('websocket连接尚未建立');
+        }
+    }
+
+    function clearResp() {
+        let resp = document.getElementById('resp');
+        resp.value = null;
+    }
+</script>
+</html>

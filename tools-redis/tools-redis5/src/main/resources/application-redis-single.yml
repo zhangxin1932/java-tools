@@ -1,0 +1,5 @@
+spring:
+  redis:
+    host: 117.48.228.109
+    # 启动类上加 @EnableCaching
+    port: 26379

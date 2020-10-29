@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_package = "com.zy.netty.netty03";
+option java_outer_classname = "DataInfo";
+
+// 这里定义传递多种实例的 protobuf 与 netty 结合的写法
+// protobuf 多协议传输的解决方案一
+message Message {
+
+    enum DataType {
+        SchoolType = 0;
+        TeacherType = 1;
+        StuType = 2;
+    }
+
+    DataType data_type = 1;
+    oneof dataBody {
+        School school = 2;
+        Teacher teacher = 3;
+        Stu stu = 4;
+    }
+}
+
+message Stu {
+    string name = 1;
+    int32 age = 2;
+    string gender = 3;
+}
+
+message Teacher {
+    string name = 1;
+    int32 age = 2;
+    string gender = 3;
+}
+
+message School {
+    string name = 1;
+    float square = 2;
+}

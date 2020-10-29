@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zy.tools.assembly.mapper.StuMapper">
+
+    <resultMap id="getAllStu" type="com.zy.tools.assembly.bean.Stu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getAllStu" resultMap="getAllStu">
+        SELECT id,name,age,gender
+        FROM tb_stu
+    </select>
+</mapper>
