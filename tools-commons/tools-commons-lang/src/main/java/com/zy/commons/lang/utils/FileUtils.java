@@ -180,15 +180,15 @@ public class FileUtils {
                         line = line.replace("\\", "");
                     }
 
-                    // 注意 Base64 加密时, 尾部可能有 = 号
-                    String[] split = line.split("=");
-                    if (split.length != 2) {
+                    // 注意 Base64 加密时, 尾部可能有 = 号, 所以不用 String 的 split 方法
+                    int i = line.indexOf("=");
+                    // FIXME 这里再确认下当 = 为最后一位时, 这样处理是否合适
+                    if (i == -1 || i == line.length() - 1) {
                         newLines.add(line);
                         return;
                     }
-
-                    String k = split[0];
-                    String v = split[1];
+                    String k = StringUtils.substring(line, 0, i);
+                    String v = StringUtils.substring(line, i+1, line.length());
                     if (StringUtils.startsWith(v, "prefixStr")) {
                         line = k + "=" + StringUtils.replaceOnce(v, "prefixStr", "newPrefixStr");
                     }
