@@ -31,10 +31,10 @@ public class FileUtils {
         throw new RuntimeException("FileUtils can not instantiated.");
     }
 
-     /**
+    /**
      * 压缩文件或文件夹到指定zip文件
      *
-     * @param srcFile     源文件或文件夹
+     * @param srcFile    源文件或文件夹
      * @param targetFile 目标zip文件
      * @throws IOException 抛出给调用者处理
      */
@@ -47,7 +47,7 @@ public class FileUtils {
     /**
      * 压缩文件夹到指定输出流中，可以是本地文件输出流，也可以是web响应下载流
      *
-     * @param srcFile       源文件或文件夹
+     * @param srcFile      源文件或文件夹
      * @param outputstream 压缩后文件的输出流
      * @throws IOException 抛出给调用者处理
      */
@@ -143,7 +143,7 @@ public class FileUtils {
     }
 
     public static void main(String[] args) {
-        write ("E:\\config.properties", "properties");
+        write("E:\\config.properties", "properties");
     }
 
     public static void write(String absPath, String fileSuffix) {
@@ -164,7 +164,7 @@ public class FileUtils {
 
         files.forEach(file -> {
             try {
-                List<String> allLines = Files.readAllLines(Paths.get(file));
+                List<String> allLines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
                 if (CollectionUtil.isEmpty(allLines)) {
                     return;
                 }
@@ -188,7 +188,7 @@ public class FileUtils {
                         return;
                     }
                     String k = StringUtils.substring(line, 0, i);
-                    String v = StringUtils.substring(line, i+1, line.length());
+                    String v = StringUtils.substring(line, i + 1, line.length());
                     if (StringUtils.startsWith(v, "prefixStr")) {
                         line = k + "=" + StringUtils.replaceOnce(v, "prefixStr", "newPrefixStr");
                     }
