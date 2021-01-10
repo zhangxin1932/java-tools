@@ -3,6 +3,7 @@ package com.zy.tools.retry.v4;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class RetryAspect {
 
     @Around(value = "@annotation(retryAnno)")
     public Object process(ProceedingJoinPoint point, RetryAnno retryAnno) throws Throwable {
-        RetryAnno retry = Objects.nonNull(retryAnno) ? retryAnno : point.getTarget().getClass().getAnnotation(RetryAnno.class);
+        RetryAnno retry = Objects.nonNull(retryAnno) ? retryAnno : ((MethodSignature) point.getSignature()).getMethod().getAnnotation(RetryAnno.class);
         if (Objects.isNull(retry)) {
             return point.proceed();
         }
