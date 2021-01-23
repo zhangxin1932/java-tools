@@ -37,7 +37,7 @@ public class BlockedAndFixedThreadPoolExecutor extends ThreadPoolExecutor {
         this.lock.lock();
         try {
             super.execute(command);
-            while (this.getPoolSize() >= this.getMaximumPoolSize() && this.getQueue().size() >= this.getBlockingQueueSize()) {
+            while (this.getPoolSize() >= this.getCorePoolSize()  && this.getQueue().size() >= this.getBlockingQueueSize()) {
                 // 这里需要考虑下, 是否应该加上这个 3s 的超时时间
                 this.condition.await(3L, TimeUnit.SECONDS);
             }

@@ -1,6 +1,5 @@
 package com.zy.commons.lang.concurrent;
 
-import org.springframework.util.Assert;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
@@ -20,37 +19,32 @@ public class FixedScheduledThreadPoolExecutor extends ScheduledThreadPoolExecuto
     private final String blockingQueueSizeLimitKey;
     private final Long awaitTime;
 
-    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, int maxPoolSize, Long awaitTime) {
+    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, Long awaitTime) {
         super(corePoolSize);
         this.blockingQueueSizeLimitKey = blockingQueueSizeLimitKey;
         this.awaitTime = awaitTime;
-        setMaxPoolSize(corePoolSize, maxPoolSize, this);
+        this.setMaximumPoolSize(corePoolSize);
     }
 
-    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, ThreadFactory threadFactory, int maxPoolSize, Long awaitTime) {
+    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, ThreadFactory threadFactory, Long awaitTime) {
         super(corePoolSize, threadFactory);
         this.blockingQueueSizeLimitKey = blockingQueueSizeLimitKey;
         this.awaitTime = awaitTime;
-        setMaxPoolSize(corePoolSize, maxPoolSize, this);
+        this.setMaximumPoolSize(corePoolSize);
     }
 
-    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, RejectedExecutionHandler handler, int maxPoolSize, Long awaitTime) {
+    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, RejectedExecutionHandler handler, Long awaitTime) {
         super(corePoolSize, handler);
         this.blockingQueueSizeLimitKey = blockingQueueSizeLimitKey;
         this.awaitTime = awaitTime;
-        setMaxPoolSize(corePoolSize, maxPoolSize, this);
+        this.setMaximumPoolSize(corePoolSize);
     }
 
-    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, ThreadFactory threadFactory, RejectedExecutionHandler handler, int maxPoolSize, Long awaitTime) {
+    public FixedScheduledThreadPoolExecutor(String blockingQueueSizeLimitKey, int corePoolSize, ThreadFactory threadFactory, RejectedExecutionHandler handler, Long awaitTime) {
         super(corePoolSize, threadFactory, handler);
         this.blockingQueueSizeLimitKey = blockingQueueSizeLimitKey;
         this.awaitTime = awaitTime;
-        setMaxPoolSize(corePoolSize, maxPoolSize, this);
-    }
-
-    private void setMaxPoolSize(int corePoolSize, int maxPoolSize, ScheduledThreadPoolExecutor executor) {
-        Assert.isTrue(corePoolSize <= maxPoolSize, "corePoolSize must be less than maxPoolSize");
-        executor.setMaximumPoolSize(maxPoolSize);
+        this.setMaximumPoolSize(corePoolSize);
     }
 
     @Override
@@ -59,7 +53,7 @@ public class FixedScheduledThreadPoolExecutor extends ScheduledThreadPoolExecuto
         try {
             String maxBlockingQueueSize = System.getProperty(blockingQueueSizeLimitKey, DEFAULT_MAX_BLOCKING_QUEUE_SIZE);
             super.execute(command);
-            while (this.getPoolSize() >= this.getMaximumPoolSize() && this.getQueue().size() >= Integer.parseInt(maxBlockingQueueSize)) {
+            while (this.getPoolSize() >= this.getCorePoolSize() && this.getQueue().size() >= Integer.parseInt(maxBlockingQueueSize)) {
                 this.condition.await(awaitTime, TimeUnit.SECONDS);
             }
         } catch (InterruptedException e) {
