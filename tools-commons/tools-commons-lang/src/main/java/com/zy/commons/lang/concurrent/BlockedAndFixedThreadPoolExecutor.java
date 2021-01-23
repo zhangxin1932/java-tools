@@ -10,8 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class BlockedAndFixedThreadPoolExecutor extends ThreadPoolExecutor {
-    private ReentrantLock lock = new ReentrantLock();
-    private Condition condition;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition condition;
     private static final int BLOCKING_QUEUE_SIZE = 1024 * 2;
     @Getter
     private final int blockingQueueSize;
@@ -34,10 +34,10 @@ public class BlockedAndFixedThreadPoolExecutor extends ThreadPoolExecutor {
 
     @Override
     public void execute(Runnable command) {
+        this.lock.lock();
         try {
-            this.lock.lock();
             super.execute(command);
-            if (this.getPoolSize() == this.getMaximumPoolSize() && this.getQueue().size() >= this.getBlockingQueueSize()) {
+            while (this.getPoolSize() >= this.getMaximumPoolSize() && this.getQueue().size() >= this.getBlockingQueueSize()) {
                 // 这里需要考虑下, 是否应该加上这个 3s 的超时时间
                 this.condition.await(3L, TimeUnit.SECONDS);
             }
@@ -51,9 +51,9 @@ public class BlockedAndFixedThreadPoolExecutor extends ThreadPoolExecutor {
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
         super.afterExecute(r, t);
+        this.lock.lock();
         try {
-            this.lock.lock();
-            this.condition.signal();
+            this.condition.signalAll();
         } finally {
             this.lock.unlock();
         }
