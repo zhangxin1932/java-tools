@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public abstract class Validators {
+public final class Validators {
     private static ServiceExceptionFactory serviceExceptionFactory;
     private Validators () {
         throw new UnsupportedOperationException("Validators cannot be Instantiated");
