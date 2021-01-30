@@ -1,5 +1,6 @@
 package com.zy.commons.lang.validator;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -39,6 +40,7 @@ public final class ParamValidators {
 
             @Override
             public void postProcess(ValidatorHandler validatorHandler) {
+                Objects.requireNonNull(validatorHandler, "ValidatorHandler cannot be null.");
                 validatorHandler.handle();
             }
 
