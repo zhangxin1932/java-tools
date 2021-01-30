@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public abstract class Validators {
     private static ServiceExceptionFactory serviceExceptionFactory;
@@ -97,7 +98,7 @@ public abstract class Validators {
         }
 
         @Override
-        public T thenGet(Fallback<T> fallback) {
+        public T thenGet(Supplier<T> fallback) {
             if (isInvalid) {
                 return fallback.get();
             }
