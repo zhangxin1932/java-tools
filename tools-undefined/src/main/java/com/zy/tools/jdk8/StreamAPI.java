@@ -11,10 +11,6 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * https://blog.csdn.net/qq_42563841/article/details/105279512?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-3&spm=1001.2101.3001.4242
- * 
- */
 public class StreamAPI {
 
     private static final List<StorePoiRel> LIST = new ArrayList<>();
