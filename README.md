@@ -6,6 +6,9 @@ https://www.docin.com/p-1705571719.html
 2.955项目
 https://github.com/formulahendry/955.WLB
 
+3.996黑名单
+https://github.com/996icu/996.ICU/blob/master/blacklist/README.md
+
 #java-tools目录
 ##tools-ssl
 ```
