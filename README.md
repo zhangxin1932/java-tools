@@ -1,3 +1,11 @@
+#优秀项目集锦
+1.解决 ScheduledThreadPoolExecutor 可能内存溢出的问题
+余志坚, & 姜春志. (2016). 采用ScheduledThreadPoolExecutor执行定时重试任务时内存溢出的分析及解决. 科技资讯, 014(007), 15-17.
+https://www.docin.com/p-1705571719.html
+
+2.955项目
+https://github.com/formulahendry/955.WLB
+
 #java-tools目录
 ##tools-ssl
 ```

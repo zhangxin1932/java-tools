@@ -47,6 +47,10 @@ public class FixedScheduledThreadPoolExecutor extends ScheduledThreadPoolExecuto
         this.setMaximumPoolSize(corePoolSize);
     }
 
+    /**
+     * 这里的 await 机制只对 schedule 方法有效, 对另外的 scheduleAtFixedRate 和 scheduleWithFixedDelay 无效
+     * @param command
+     */
     @Override
     public void execute(Runnable command) {
         this.lock.lock();
