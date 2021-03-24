@@ -1,9 +1,6 @@
 package com.zy.commons.lang.concurrent;
 
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -52,16 +49,19 @@ public class FixedScheduledThreadPoolExecutor extends ScheduledThreadPoolExecuto
      * @param command
      */
     @Override
-    public void execute(Runnable command) {
+    public ScheduledFuture<?> schedule(Runnable command,
+                                       long delay,
+                                       TimeUnit unit) {
         this.lock.lock();
         try {
             String maxBlockingQueueSize = System.getProperty(blockingQueueSizeLimitKey, DEFAULT_MAX_BLOCKING_QUEUE_SIZE);
-            super.execute(command);
             while (this.getPoolSize() >= this.getCorePoolSize() && this.getQueue().size() >= Integer.parseInt(maxBlockingQueueSize)) {
                 this.condition.await(awaitTime, TimeUnit.SECONDS);
             }
+            return super.schedule(command, delay, unit);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            return null;
         } finally {
             this.lock.unlock();
         }
