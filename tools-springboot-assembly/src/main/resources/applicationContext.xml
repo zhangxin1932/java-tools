@@ -7,7 +7,7 @@
         http://www.zy.com/custom-tags
         http://www.zy.com/custom-tags.xsd">
 
-    <custom-tags:service id="hello" interfaceName="com.zy.tools.assembly.IHelloService" ref="helloService"/>
+    <custom-tags:service id="hello" interfaceName="com.zy.tools.undefined.assembly.IHelloService" ref="helloService"/>
 
-    <bean id="helloService" class="com.zy.tools.assembly.HelloServiceImpl"/>
+    <bean id="helloService" class="com.zy.tools.undefined.assembly.HelloServiceImpl"/>
 </beans>

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.zy.tools.spring.custom.starter.DateParseAutoConfigure
+  com.zy.tools.undefined.spring.custom.starter.DateParseAutoConfigure
