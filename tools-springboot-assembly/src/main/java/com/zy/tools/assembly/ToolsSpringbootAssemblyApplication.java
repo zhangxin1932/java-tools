@@ -1,4 +1,4 @@
-package com.zy.tools.undefined.assembly;
+package com.zy.tools.assembly;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

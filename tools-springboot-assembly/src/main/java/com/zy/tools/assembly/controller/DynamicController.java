@@ -1,13 +1,13 @@
-package com.zy.tools.undefined.assembly.controller;
+package com.zy.tools.assembly.controller;
 
 import com.netflix.config.DynamicProperty;
 import com.zy.commons.did.core.DidGenerator;
 import com.zy.commons.lang.response.ResponseVO;
 import com.zy.commons.lang.validator.Validators;
-import com.zy.tools.undefined.assembly.bean.Req;
-import com.zy.tools.undefined.assembly.bean.Stu;
-import com.zy.tools.undefined.assembly.exception.ExceptionEnum;
-import com.zy.tools.undefined.assembly.mapper.StuMapper;
+import com.zy.tools.assembly.bean.Req;
+import com.zy.tools.assembly.bean.Stu;
+import com.zy.tools.assembly.exception.ExceptionEnum;
+import com.zy.tools.assembly.mapper.StuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

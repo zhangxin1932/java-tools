@@ -1,4 +1,4 @@
-package com.zy.tools.undefined.assembly.exception;
+package com.zy.tools.assembly.exception;
 
 import com.zy.commons.lang.exception.ErrorInfo;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.zy.tools.undefined.assembly.config;
+package com.zy.tools.assembly.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.zy.commons.lang.security.AESTools;

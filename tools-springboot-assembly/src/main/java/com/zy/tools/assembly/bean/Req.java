@@ -1,4 +1,4 @@
-package com.zy.tools.undefined.assembly.bean;
+package com.zy.tools.assembly.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
